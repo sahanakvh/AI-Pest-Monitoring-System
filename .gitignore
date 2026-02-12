@@ -1,0 +1,16 @@
+# Virtual environment
+pest_env/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Mac files
+.DS_Store
+
+# Dataset
+dataset/
+
+# Model files
+*.h5
+*.keras
