@@ -1,0 +1,4 @@
+pest_env/
+__pycache__/
+src/history.db
+*.pyc
