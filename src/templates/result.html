@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Crop Analysis Report</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #eef5ec;
+            padding: 40px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            max-width: 800px;
+            margin: auto;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+
+        h1 {
+            color: #2e7d32;
+        }
+
+        .bar {
+            background: #ddd;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .bar-fill {
+            height: 20px;
+            background: #4caf50;
+            border-radius: 6px;
+            text-align: right;
+            padding-right: 5px;
+            color: white;
+            font-size: 12px;
+        }
+
+        .btn {
+            background: #2e7d32;
+            color: white;
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            background: #1b5e20;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🌿 Crop Analysis Report</h1>
+
+    <p><b>Detected Disease:</b> {{ disease }}</p>
+    <p><b>Confidence:</b> {{ confidence }}%</p>
+    <p><b>Temperature:</b> {{ temperature }}°C</p>
+    <p><b>Humidity:</b> {{ humidity }}%</p>
+    <p><b>Risk Level:</b> {{ risk }}</p>
+    <p><b>Severity Level:</b> 
+    	{% if severity == "Severe" %}
+        	<span style="color:red; font-weight:bold;">🔴 Severe</span>
+    	{% elif severity == "Moderate" %}
+        	<span style="color:orange; font-weight:bold;">🟡 Moderate</span>
+    	{% else %}
+        	<span style="color:green; font-weight:bold;">🟢 Mild</span>
+    	{% endif %}
+    </p>
+    <h2>Prediction Breakdown</h2>
+
+    {% for disease, prob in probabilities.items() %}
+        <div>{{ disease }} - {{ prob }}%</div>
+        <div class="bar">
+            <div class="bar-fill" style="width: {{ prob }}%;">
+                {{ prob }}%
+            </div>
+        </div>
+    {% endfor %}
+
+    <h3>Recommendation</h3>
+    <p>{{ recommendation }}</p>
+
+    <h3>Prevention</h3>
+    <p>{{ prevention }}</p>
+
+    <a href="/ui" class="btn">Analyze Another</a>
+    <br><br>
+    <a href="/download-report" class="btn" style="background:#1565c0;">
+    ⬇ Download PDF Report
+    </a>
+    
+    <br><br>
+    <a href="/history" class="btn" style="background:#6a1b9a;">
+        📊 View History
+    </a>
+</div>
+
+</body>
+</html>

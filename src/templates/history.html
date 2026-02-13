@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Prediction History</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f8;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #2e7d32;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background: #2e7d32;
+            color: white;
+        }
+
+        tr:hover {
+            background: #f1f1f1;
+        }
+        
+
+        .btn {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 10px 18px;
+            background: #2e7d32;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+        .chart-container {
+              width: 400px;
+              height: 400px;
+              margin: 40px auto;
+              background: white;
+              padding: 20px;
+              border-radius: 12px;
+              box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          }
+
+          canvas {
+              max-width: 100%;
+          }
+          .dashboard {
+                display: flex;
+                justify-content: space-between;
+                margin: 30px 0;
+                gap: 20px;
+           }
+
+           .card {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card h3 {
+    margin-bottom: 10px;
+    color: #2e7d32;
+}
+
+.card p {
+    font-size: 22px;
+    font-weight: bold;
+}
+    </style>
+</head>
+<body>
+
+<h1>📊 Prediction History</h1>
+<div class="dashboard">
+    <div class="card">
+        <h3>Total Predictions</h3>
+        <p>{{ total_predictions }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Most Common Disease</h3>
+        <p>{{ most_common_disease }}</p>
+    </div>
+
+    <div class="card">
+        <h3>Average Confidence</h3>
+        <p>{{ avg_confidence }}%</p>
+    </div>
+
+    <div class="card">
+        <h3>High Risk Cases</h3>
+        <p>{{ high_risk }}</p>
+    </div>
+</div>
+</table>
+
+<br><br>
+<h2>Disease Distribution</h2>
+<div class="chart-container">
+	<canvas id="diseaseChart"></canvas>
+</div>
+<br><br>
+<a href="/ui" class="btn">Back to Analysis</a>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const rows = {{ rows|tojson }};
+    
+    let diseaseCount = {};
+    
+    rows.forEach(row => {
+        let disease = row[1];
+        diseaseCount[disease] = (diseaseCount[disease] || 0) + 1;
+    });
+    
+    const ctx = document.getElementById('diseaseChart').getContext('2d');
+    
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(diseaseCount),
+            datasets: [{
+                data: Object.values(diseaseCount),
+                backgroundColor: [
+                    '#2e7d32',
+                    '#1565c0',
+                    '#f9a825',
+                    '#c62828'
+                ]
+            }]
+        }
+    });
+</script>
+
+</body>
+</html>

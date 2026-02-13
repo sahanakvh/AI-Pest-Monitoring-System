@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Pest Monitoring</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background: url("https://images.unsplash.com/photo-1464226184884-fa280b87c399") no-repeat center center/cover;
+            height: 100vh;
+        }
+
+        .overlay {
+            background: rgba(0, 0, 0, 0.65);
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            color: white;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+
+        input {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border: none;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 14px;
+            border-radius: 10px;
+            border: none;
+            background: #4CAF50;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #2e7d32;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+
+<div class="overlay">
+    <div class="card">
+        <h1>🌿 AI Pest Monitoring System</h1>
+        <div class="subtitle">
+            Real-time crop disease detection with environmental risk analysis
+        </div>
+
+        <form action="/predict-ui" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image" required>
+            <input type="text" name="city" placeholder="Enter City (e.g. Bangalore)" required>
+            <button type="submit">Analyze Plant</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
